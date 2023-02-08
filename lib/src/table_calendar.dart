@@ -81,6 +81,7 @@ class TableCalendar<T> extends StatefulWidget {
   /// }
   /// ```
   final Map<CalendarFormat, String> availableCalendarFormats;
+  final Map<CalendarFormat, Widget> availableCalendarFormatIcons;
 
   /// Determines the visibility of calendar header.
   final bool headerVisible;
@@ -221,6 +222,7 @@ class TableCalendar<T> extends StatefulWidget {
       CalendarFormat.twoWeeks: '2 weeks',
       CalendarFormat.week: 'Week',
     },
+    this.availableCalendarFormatIcons = const {},
     this.headerVisible = true,
     this.daysOfWeekVisible = true,
     this.pageJumpingEnabled = false,
@@ -463,6 +465,8 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
                     widget.onHeaderLongPressed?.call(value),
                 headerStyle: widget.headerStyle,
                 availableCalendarFormats: widget.availableCalendarFormats,
+                availableCalendarFormatIcons:
+                    widget.availableCalendarFormatIcons,
                 calendarFormat: widget.calendarFormat,
                 locale: widget.locale,
                 onFormatButtonTap: (format) {

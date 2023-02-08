@@ -36,6 +36,7 @@ Widget setupTestWidget({
         onHeaderLongPress: () => onHeaderLongPress?.call(),
         onFormatButtonTap: (format) => onFormatButtonTap?.call(format),
         availableCalendarFormats: availableCalendarFormats,
+        availableCalendarFormatIcons: const {},
       ),
     ),
   );

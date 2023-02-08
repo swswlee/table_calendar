@@ -15,6 +15,7 @@ class FormatButton extends StatelessWidget {
   final EdgeInsets padding;
   final bool showsNextFormat;
   final Map<CalendarFormat, String> availableCalendarFormats;
+  final Map<CalendarFormat, Widget> availableCalendarFormatIcons;
 
   const FormatButton({
     Key? key,
@@ -25,18 +26,22 @@ class FormatButton extends StatelessWidget {
     required this.padding,
     required this.showsNextFormat,
     required this.availableCalendarFormats,
+    required this.availableCalendarFormatIcons,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final child = Container(
-      decoration: decoration,
-      padding: padding,
-      child: Text(
-        _formatButtonText,
-        style: textStyle,
-      ),
-    );
+    final formatButtonIcon = _formatButtonIcon;
+    final child = formatButtonIcon != null
+        ? formatButtonIcon
+        : Container(
+            decoration: decoration,
+            padding: padding,
+            child: Text(
+              _formatButtonText,
+              style: textStyle,
+            ),
+          );
 
     final platform = Theme.of(context).platform;
 
@@ -55,6 +60,10 @@ class FormatButton extends StatelessWidget {
           );
   }
 
+  Widget? get _formatButtonIcon => showsNextFormat
+      ? availableCalendarFormatIcons[_nextFormat()]
+      : availableCalendarFormatIcons[calendarFormat];
+
   String get _formatButtonText => showsNextFormat
       ? availableCalendarFormats[_nextFormat()]!
       : availableCalendarFormats[calendarFormat]!;
@@ -63,7 +72,6 @@ class FormatButton extends StatelessWidget {
     final formats = availableCalendarFormats.keys.toList();
     int id = formats.indexOf(calendarFormat);
     id = (id + 1) % formats.length;
-
     return formats[id];
   }
 }
